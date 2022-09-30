@@ -21,9 +21,23 @@ class PolyTreeNode
   end
 
   def remove_child(node)
-    raise "Cannot remove, not a child" unless node.parent 
+    raise 'Cannot remove, not a child' unless node.parent
+
     node.parent = nil
   end
+
+  def dfs(value)
+    return self if self.value == value
+
+    children.each do |child|
+      if !dfs(child.value).nil?
+        return dfs(child.value)
+      end
+    end
+    nil
+  end
+
+  def bfs(value); end
 end
 # x = PolyTreeNode.new(:parent)
 # y = PolyTreeNode.new(:child)
