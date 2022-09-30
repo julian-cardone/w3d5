@@ -15,8 +15,16 @@ class PolyTreeNode
 
     node.children.push(self) if !node.nil? && !node.children.include?(self)
   end
-end
 
+  def add_child(node)
+    node.parent = self
+  end
+
+  def remove_child(node)
+    raise "Cannot remove, not a child" unless node.parent 
+    node.parent = nil
+  end
+end
 # x = PolyTreeNode.new(:parent)
 # y = PolyTreeNode.new(:child)
 # z = PolyTreeNode.new(:child)
