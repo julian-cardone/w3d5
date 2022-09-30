@@ -1,4 +1,6 @@
 class PolyTreeNode
+require 'byebug'
+
   attr_reader :value, :parent, :children
 
   def initialize(value)
@@ -26,18 +28,24 @@ class PolyTreeNode
     node.parent = nil
   end
 
-  def dfs(value)
-    return self if self.value == value
-
+  def dfs(target)
+    return nil if self.nil?
+    return self if self.value == target
     children.each do |child|
-      if !dfs(child.value).nil?
-        return dfs(child.value)
+      result = child.dfs(target)
+      return result if result.value == target
+      
+      if result.is_a?(Array) && result.empty?
       end
     end
-    nil
   end
 
   def bfs(value); end
+
+  def inspect
+    { 'value' => value, 'parent_value' => parent.value, 'children' => children}.inspect
+  end
+
 end
 # x = PolyTreeNode.new(:parent)
 # y = PolyTreeNode.new(:child)
